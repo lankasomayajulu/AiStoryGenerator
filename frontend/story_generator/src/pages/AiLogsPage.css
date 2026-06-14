@@ -1,0 +1,377 @@
+.ai-logs-page {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding: 16px 20px 20px;
+  background: #f5f5f5;
+  overflow: hidden;
+}
+
+.ai-logs-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-shrink: 0;
+}
+
+.ai-logs-toolbar h1 {
+  flex: 1;
+  margin: 0;
+  font-size: 24px;
+  color: #333;
+}
+
+.btn-back-logs {
+  padding: 8px 14px;
+  background: #fff;
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn-refresh-logs {
+  padding: 10px 18px;
+  background: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.btn-export-logs {
+  padding: 10px 18px;
+  background: #28a745;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.btn-export-logs:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-nav-summary {
+  padding: 8px 14px;
+  background: #fff;
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.ai-logs-intro {
+  margin: 8px 0 12px;
+  color: #555;
+  font-size: 14px;
+  line-height: 1.45;
+  flex-shrink: 0;
+}
+
+.ai-logs-intro code {
+  background: #e9ecef;
+  padding: 1px 5px;
+  border-radius: 4px;
+}
+
+.ai-logs-banner,
+.ai-logs-muted {
+  color: #666;
+  font-size: 14px;
+}
+
+.ai-logs-error {
+  background: #f8d7da;
+  color: #721c24;
+  padding: 10px 14px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  flex-shrink: 0;
+}
+
+.ai-logs-split {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  gap: 16px;
+}
+
+.ai-logs-left {
+  width: 340px;
+  min-width: 260px;
+  max-width: 42%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: #fff;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.ai-logs-right {
+  flex: 1;
+  min-width: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: #fff;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  padding: 14px;
+  box-sizing: border-box;
+}
+
+.ai-logs-month-block + .ai-logs-month-block {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid #eee;
+}
+
+.ai-logs-month-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 14px;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.btn-delete-month {
+  font-size: 11px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  border: 1px solid #f5c6cb;
+  background: #fff5f5;
+  color: #c62828;
+  cursor: pointer;
+}
+
+.btn-delete-month:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.ai-logs-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ai-logs-list li {
+  display: flex;
+  align-items: stretch;
+  gap: 4px;
+  margin-bottom: 4px;
+}
+
+.ai-log-row {
+  flex: 1;
+  text-align: left;
+  border: 1px solid #e9ecef;
+  border-radius: 6px;
+  padding: 6px 8px;
+  background: #fafafa;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 12px;
+}
+
+.ai-log-row:hover {
+  background: #f0f4ff;
+}
+
+.ai-log-row-active {
+  border-color: #007bff;
+  background: #e7f1ff;
+}
+
+.ai-log-row-time {
+  font-size: 11px;
+  color: #666;
+}
+
+.ai-log-row-op {
+  font-weight: 600;
+  color: #1a1a2e;
+}
+
+.ai-log-row-sub {
+  font-size: 11px;
+  color: #555;
+}
+
+.btn-delete-one {
+  width: 28px;
+  flex-shrink: 0;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  background: #fff;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 1;
+  color: #c62828;
+}
+
+.ai-log-detail-card {
+  font-size: 14px;
+}
+
+.ai-log-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px 16px;
+  margin-bottom: 14px;
+}
+
+.ai-log-detail-grid .span-2 {
+  grid-column: span 2;
+}
+
+.dl-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #6c757d;
+  margin-bottom: 2px;
+}
+
+.dl-label.mt {
+  margin-top: 8px;
+}
+
+.wrap {
+  word-break: break-word;
+}
+
+.ai-logs-json-block {
+  margin: 8px 0 12px;
+  padding: 12px;
+  background: #1e1e1e;
+  color: #d4d4d4;
+  border-radius: 8px;
+  overflow: auto;
+  max-height: min(560px, 55vh);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.ai-logs-copy-actions {
+  display: flex;
+  gap: 8px;
+  margin: 8px 0 0;
+}
+
+.btn-copy-request {
+  padding: 7px 12px;
+  border-radius: 6px;
+  border: 1px solid #d0d7e2;
+  background: #f7faff;
+  color: #1f3b74;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.btn-copy-request:hover {
+  background: #e9f1ff;
+}
+
+.ai-logs-response-panel {
+  margin-bottom: 12px;
+}
+
+.ai-logs-response-kind {
+  font-size: 12px;
+  font-weight: 700;
+  color: #2e7d32;
+  margin-bottom: 6px;
+}
+
+.ai-logs-response-note {
+  margin: 0 0 10px 0;
+  font-size: 13px;
+  color: #555;
+  line-height: 1.45;
+}
+
+.ai-logs-response-empty {
+  margin: 8px 0 12px;
+  padding: 12px;
+  background: #f8f9fa;
+  border: 1px dashed #ced4da;
+  border-radius: 8px;
+  font-size: 13px;
+  color: #666;
+}
+
+.ai-logs-response-images {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.ai-logs-response-figure {
+  margin: 0;
+  max-width: 100%;
+}
+
+.ai-logs-response-img {
+  max-width: min(420px, 100%);
+  max-height: 360px;
+  object-fit: contain;
+  border-radius: 8px;
+  border: 1px solid #333;
+  background: #111;
+}
+
+.ai-logs-img-url {
+  margin-top: 6px;
+  font-size: 11px;
+  color: #888;
+}
+
+.ai-logs-response-json {
+  margin-top: 8px;
+}
+
+.ai-logs-response-text-block {
+  margin: 8px 0 12px;
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-height: min(480px, 50vh);
+}
+
+.btn-delete-detail {
+  padding: 8px 14px;
+  border-radius: 6px;
+  border: 1px solid #f5c6cb;
+  background: #fff5f5;
+  color: #c62828;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+@media (max-width: 760px) {
+  .ai-logs-split {
+    flex-direction: column;
+  }
+
+  .ai-logs-left {
+    width: 100%;
+    max-width: none;
+    max-height: 40vh;
+  }
+
+  .ai-logs-right {
+    max-height: 50vh;
+  }
+}

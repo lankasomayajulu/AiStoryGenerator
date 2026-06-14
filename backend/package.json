@@ -1,0 +1,32 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@tiptap/extension-placeholder": "^3.14.0",
+    "@tiptap/react": "^3.14.0",
+    "@tiptap/starter-kit": "^3.14.0",
+    "axios": "^1.13.2",
+    "@napi-rs/canvas": "^0.1.88",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
+    "jszip": "^3.10.1",
+    "mongoose": "^9.1.1",
+    "multer": "^1.4.5-lts.1",
+    "pako": "^2.1.0",
+    "pdf-parse": "^1.1.1",
+    "pdfjs-dist": "^4.10.38",
+    "react-beautiful-dnd": "^13.1.1",
+    "react-draggable": "^4.5.0",
+    "react-router-dom": "^7.11.0"
+  }
+}

@@ -1,0 +1,12 @@
+# Environment files (secrets — never commit)
+.env
+.env.*
+frontend/story_generator/node_modules
+frontend/story_generator/node_modules/*
+!.env.example
+
+# Board uploads and auto-generated encryption key
+backend/data/*
+backend/node_modules
+backend/node_modules/*
+!backend/data/.gitkeep
