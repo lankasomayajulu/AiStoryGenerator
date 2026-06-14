@@ -33,13 +33,12 @@ export const PLAN_SCENE_SYSTEM_PROMPT =
  * Builds the chat user message for “Plan next scene” (non-streaming completion).
  *
  * @param {object} p
- * @param {Function} stripHtmlFn - (html) => plain text like RightPanel.stripHtml
  */
-export function buildPlanNextSceneUserMessage(p, stripHtmlFn) {
+export function buildPlanNextSceneUserMessage(p) {
   const {
     project,
     activeFile,
-    editor,
+    contentText = '',
     additionalInputTrimmed,
     pointCount,
   } = p;
@@ -52,7 +51,7 @@ export function buildPlanNextSceneUserMessage(p, stripHtmlFn) {
   const aid = activeFile._id;
 
   const outlinePlain =
-    outlineFile && outlineFile.content != null ? stripHtmlFn(String(outlineFile.content)) : '';
+    outlineFile && outlineFile.content != null ? String(outlineFile.content) : '';
 
   let outlineSection;
   if (outlinePlain.trim()) {
@@ -68,16 +67,10 @@ export function buildPlanNextSceneUserMessage(p, stripHtmlFn) {
       '[Outline: End]';
   }
 
-  let activeDraftText = '';
-  if (editor) {
-    try {
-      activeDraftText = editor.getText();
-    } catch {
-      activeDraftText = stripHtmlFn(activeFile.content || '');
-    }
-  } else {
-    activeDraftText = stripHtmlFn(activeFile.content || '');
-  }
+  const activeDraftText =
+    contentText !== undefined && contentText !== null
+      ? contentText
+      : activeFile.content || '';
 
   const activeSection = wrapFileBodyForPrompt({
     name: activeFile.name || 'Active draft',
@@ -89,7 +82,7 @@ export function buildPlanNextSceneUserMessage(p, stripHtmlFn) {
   for (const folder of project.folders) {
     for (const file of folder.files || []) {
       if (!file.isSelected || file._id === aid || (oid && file._id === oid)) continue;
-      const raw = file.content ? stripHtmlFn(String(file.content)) : '';
+      const raw = file.content ? String(file.content) : '';
       if (!raw.trim()) continue;
       otherBlocks.push(
         wrapFileBodyForPrompt({

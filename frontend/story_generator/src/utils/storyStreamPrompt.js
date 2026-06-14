@@ -24,14 +24,13 @@ export const collectContextFileIds = (project, activeFileId) => {
 export const buildStoryStreamPrompt = ({
   project,
   activeFile,
-  editor,
+  contentText = '',
   reviseMode = false,
   continuePrompt = '',
   revisePrompt = '',
   selectedText = '',
   selectionRange = { from: 0, to: 0 },
   contentOverrides = {},
-  stripHtmlFn = (html) => String(html ?? ''),
 }) => {
   if (!project || !activeFile) return '';
 
@@ -58,28 +57,30 @@ export const buildStoryStreamPrompt = ({
     if (rawContent) {
       const wrapped = wrapFileBodyForPrompt({
         name: file.name,
-        content: stripHtmlFn(rawContent),
+        content: rawContent,
         promptRole: file.promptRole,
       });
       prompt += `\n${wrapped}\n`;
     }
   }
 
-  if (reviseMode && selectedText && editor) {
-    const fullText = editor.getText();
+  const activeContentText =
+    contentText !== undefined && contentText !== null
+      ? contentText
+      : activeFile.content || '';
+
+  if (reviseMode && selectedText) {
+    const fullText = activeContentText;
     const beforeSelection = fullText.substring(0, selectionRange.from);
     const afterSelection = fullText.substring(selectionRange.to);
     prompt += `Story:\n${beforeSelection}[Passage: Start]${selectedText}[Passage: End]${afterSelection}`;
     prompt += revisePrompt;
   } else {
     prompt += continuePrompt;
-    const activeContentText = editor
-      ? editor.getText()
-      : stripHtmlFn(activeFile.content || '');
     prompt += `Story:\n${activeContentText}`;
   }
 
-  return stripHtmlFn(prompt);
+  return prompt;
 };
 
 export const countPromptInputFiles = (project, activeFile) => {

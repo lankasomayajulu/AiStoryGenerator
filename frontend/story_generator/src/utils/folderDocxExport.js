@@ -12,10 +12,10 @@ import { saveAs } from 'file-saver';
 import { openRouterApi } from '../services/api';
 import { extractJsonFromText } from './extractJsonFromText';
 import {
-  getHeadingSample,
-  htmlToParagraphs,
+  getHeadingSampleFromMarkdown,
+  markdownToParagraphs,
   stripLeadingHeading,
-} from './htmlToParagraphs';
+} from './markdownToParagraphs';
 
 const HEADING_SYSTEM_PROMPT = `You analyze the opening lines of a document chapter to detect whether they contain a chapter or section heading.
 
@@ -30,8 +30,8 @@ Rules:
 - If the text starts directly with story or narrative content, set hasHeading to false and heading to null.
 - Do not invent headings that are not present in the excerpt.`;
 
-async function detectFileHeading(fileName, htmlContent, model) {
-  const sample = getHeadingSample(htmlContent, 1000);
+async function detectFileHeading(fileName, markdownContent, model) {
+  const sample = getHeadingSampleFromMarkdown(markdownContent, 1000);
   if (!sample.trim()) {
     return { hasHeading: false, heading: null };
   }
@@ -74,8 +74,8 @@ async function detectFileHeading(fileName, htmlContent, model) {
   }
 }
 
-function bodyParagraphs(htmlContent, headingText, usedFileNameAsHeading) {
-  let paragraphs = htmlToParagraphs(htmlContent);
+function bodyParagraphs(markdownContent, headingText, usedFileNameAsHeading) {
+  let paragraphs = markdownToParagraphs(markdownContent);
   if (!usedFileNameAsHeading && headingText) {
     paragraphs = stripLeadingHeading(paragraphs, headingText);
   }
