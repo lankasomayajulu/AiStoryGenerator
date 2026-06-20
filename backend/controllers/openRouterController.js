@@ -2,6 +2,7 @@ const openRouterService = require('../services/openRouterService');
 const mongodbService = require('../services/mongodbService');
 const aiRequestLogService = require('../services/aiRequestLogService');
 const { createStreamingUsageAccumulator } = require('../utils/openRouterUsage');
+const { buildReasoningOption } = require('../utils/reasoning');
 
 const getAllModels = async (req, res) => {
   try {
@@ -45,16 +46,11 @@ const getStreamingResponse = async (req, res) => {
     const streamOptions = {
       max_tokens: finalMaxTokens,
       temperature: finalTemperature,
+      // Reasoning effort comes from settings; exclude keeps reasoning tokens out of the editor stream.
+      reasoning: buildReasoningOption(settings.ReasoningEffort, { exclude: true }),
       _requestType: useGsdStreaming ? 'GSD' : 'Plain Text',
       _aiLogOperation: useGsdStreaming ? 'project-stream-gsd' : 'stream',
     };
-    // Plain streaming: OpenRouter reasoning trim (editor UX). GSD path matches planner (no reasoning override).
-    if (!useGsdStreaming) {
-      streamOptions.reasoning = {
-        exclude: true,
-        effort: 'minimal'
-      };
-    }
 
     const { stream, requestBody } = await openRouterService.getStreamingResponse(
       settings.ApiKey,
@@ -166,6 +162,7 @@ const getResponse = async (req, res) => {
       finalModel,
       finalMessages,
       {
+        reasoning: buildReasoningOption(settings.ReasoningEffort, { exclude: true }),
         ...extraOpts,
         max_tokens: finalMaxTokens,
         temperature: finalTemperature,

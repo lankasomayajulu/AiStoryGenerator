@@ -15,6 +15,18 @@ const OUTPUT_LENGTH_OPTIONS = [
   { label: 'Super Max', value: 147072 },
 ];
 
+// Maps to OpenRouter's reasoning effort enum. The provider converts the effort
+// into an actual reasoning token budget per model, so no numeric value is sent.
+const REASONING_EFFORT_OPTIONS = [
+  { label: 'None (no reasoning)', value: 'none' },
+  { label: 'Minimal', value: 'minimal' },
+  { label: 'Low', value: 'low' },
+  { label: 'Medium', value: 'medium' },
+  { label: 'High', value: 'high' },
+];
+
+const DEFAULT_REASONING_EFFORT = 'minimal';
+
 const SettingsTab = ({
   settings,
   models,
@@ -181,6 +193,24 @@ const SettingsTab = ({
             </option>
           ))}
         </select>
+      </div>
+
+      <div className="settings-group">
+        <label>Reasoning Effort</label>
+        <select
+          value={localSettings.ReasoningEffort || DEFAULT_REASONING_EFFORT}
+          onChange={(e) => handleChange('ReasoningEffort', e.target.value)}
+        >
+          {REASONING_EFFORT_OPTIONS.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </select>
+        <small>
+          How much the model "thinks" before answering. OpenRouter converts this into an
+          appropriate reasoning token budget per model (no numeric value is sent).
+        </small>
       </div>
 
       <div className="settings-group">

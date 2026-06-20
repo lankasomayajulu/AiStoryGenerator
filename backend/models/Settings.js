@@ -23,6 +23,12 @@ const SettingsSchema = new mongoose.Schema({
     min: 0,
     max: 1
   },
+  /** Reasoning effort sent to OpenRouter (none | minimal | low | medium | high). The provider maps this to an actual token budget per model. */
+  ReasoningEffort: {
+    type: String,
+    enum: ['none', 'minimal', 'low', 'medium', 'high'],
+    default: 'minimal'
+  },
   /** When true, Project page OpenRouter SSE uses GSD-aligned options (same as planner streaming path). */
   UseGsdForStreaming: {
     type: Boolean,

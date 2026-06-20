@@ -1,6 +1,7 @@
 const mongodbService = require('./mongodbService');
 const openRouterService = require('./openRouterService');
 const { wrapFileBodyForPrompt, joinContextBlocks } = require('../utils/storyContextTags');
+const { buildReasoningOption } = require('../utils/reasoning');
 
 const normalizeMessages = (discussionMessages = []) => {
   if (!Array.isArray(discussionMessages)) return [];
@@ -165,6 +166,7 @@ const runDiscuss = async (session, userMessage, options = {}) => {
   const response = await openRouterService.streamResponseToJson(settings.ApiKey, model, messages, {
     max_tokens: settings.OutputLength,
     temperature: settings.Temperature,
+    reasoning: buildReasoningOption(settings.ReasoningEffort, { exclude: true }),
     _requestType: 'GSD',
     _aiLogOperation: 'gsd-discuss'
   });
@@ -221,6 +223,7 @@ const runGeneratePlan = async (session, options = {}) => {
   const response = await openRouterService.streamResponseToJson(settings.ApiKey, model, messages, {
     max_tokens: settings.OutputLength,
     temperature: settings.Temperature,
+    reasoning: buildReasoningOption(settings.ReasoningEffort, { exclude: true }),
     _requestType: 'GSD',
     _aiLogOperation: 'gsd-plan'
   });
@@ -301,6 +304,7 @@ const runGenerateScenes = async (session, plan, existingScenes = [], targetPartI
   const response = await openRouterService.streamResponseToJson(settings.ApiKey, model, messages, {
     max_tokens: settings.OutputLength,
     temperature: settings.Temperature,
+    reasoning: buildReasoningOption(settings.ReasoningEffort, { exclude: true }),
     _requestType: 'GSD',
     _aiLogOperation: 'gsd-scenes'
   });
@@ -384,6 +388,7 @@ const runReviseSingleScene = async (session, plan, continuityScenes, targetScene
   const response = await openRouterService.streamResponseToJson(settings.ApiKey, model, messages, {
     max_tokens: settings.OutputLength,
     temperature: settings.Temperature,
+    reasoning: buildReasoningOption(settings.ReasoningEffort, { exclude: true }),
     _requestType: 'GSD',
     _aiLogOperation: 'gsd-revise-scene'
   });
@@ -476,6 +481,7 @@ const runElaborateChapter = async (session, plan, scenes = [], options = {}) => 
   const response = await openRouterService.streamResponseToJson(settings.ApiKey, model, messages, {
     max_tokens: settings.OutputLength,
     temperature: settings.Temperature,
+    reasoning: buildReasoningOption(settings.ReasoningEffort, { exclude: true }),
     _requestType: 'GSD',
     _aiLogOperation: 'gsd-elaborate'
   });
@@ -536,6 +542,7 @@ const runSuggestContextImprovements = async (session, options = {}) => {
   const response = await openRouterService.streamResponseToJson(settings.ApiKey, model, messages, {
     max_tokens: settings.OutputLength,
     temperature: settings.Temperature,
+    reasoning: buildReasoningOption(settings.ReasoningEffort, { exclude: true }),
     _requestType: 'GSD',
     _aiLogOperation: 'gsd-suggest-context'
   });
